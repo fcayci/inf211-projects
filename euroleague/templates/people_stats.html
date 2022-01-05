@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<head>
+    <title>EuroLeague - {{title}} Stats</title>
+    <style>
+        .fixture tr:nth-child(even) {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{title}} Stats</h1>
+
+    <table id="test-table" class="table fixture" cellspacing="0" width="100%" style="text-align:left">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Team</th>
+            <th>Points</th>
+        </tr>
+    </thead>
+    <tbody>
+            {% for p in ps %}
+            <tr>
+                <td scope="col"><a href="{{ url_for('player_stats', pid=p.id ) }}">{{p.name}}</a></td>
+                <td scope="col">{{p.team}}</td>
+                <td scope="col">{{p.points}}</td>
+            </tr>
+            {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

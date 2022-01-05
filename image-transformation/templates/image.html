@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<head>
+    <title>Image Transformation</title>
+</head>
+<body>
+<main style="min-height:600px">
+    <h1>Image Transformation</h1>
+    <h3>Choose the transformation function that you want to run on the following image.</h3>
+    <p>Note that each pixel is repeated 2 times to display a bigger image.</p>
+
+    <article style="padding-bottom: 2em;">
+        <form action="/" method="post">
+            <input type="hidden" id="image" name="image" value="{{img}}" />
+        <ul style="list-style-type:none;">
+            <li><input type="submit" name="command" value="Reset" /> </li>
+            <li><input type="submit" name="command" value="Clear" /> </li>
+            <li><input type="submit" name="command" value="Generate Random Image" />
+                Number of Rows:
+                <select name="rows">
+                    <option value="5">5</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="200">200</option>
+                </select>
+                Number of Columns:
+                <select name="columns">
+                    <option value="5">5</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="200">200</option>
+                </select>
+            </li>
+            <li><input type="submit" name="command" value="Set" />
+                Value:
+                <input type="number" name="setvalue" value="100", min="0" max="255">
+                (will set all channels)
+            </li>
+            <li><input type="submit" name="command" value="Enhance" />
+                Value:
+                <input type="number" name="enhancevalue" value="1", min="0" max="30">
+                (will be divided to 10 and enhance all channels)
+            </li>
+            <li><input type="submit" name="command" value="Grayscale" />
+                Scale Mode:
+                <select name="mode">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </li>
+            <li><input type="submit" name="command" value="Scale Down" />
+                Scale Amount:
+                <select name="scaledown">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </li>
+            <li><input type="submit" name="command" value="Scale Up" />
+                Scale Amount:
+                <select name="scaleup">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </li>
+            <li><input type="submit" name="command" value="Mirror X" /> </li>
+            <li><input type="submit" name="command" value="Mirror Y" /> </li>
+            <li><input type="submit" name="command" value="Rotate 90" /> </li>
+            <li><input type="submit" name="command" value="Rotate 180" /> </li>
+            <li><input type="submit" name="command" value="Rotate 270" /> </li>
+            <h4>Filters :</h4>
+            <li> Window Size : <select name="windowsize">
+                    <option value="3">3</option>
+                    <option value="5">5</option>
+                </select></li>
+            </ul>
+            <input type="submit" name="command" value="Identity" />
+            <input type="submit" name="command" value="Box Blur" />
+            <input type="submit" name="command" value="Gaussian Blur" />
+            <input type="submit" name="command" value="Sharpen" />
+            <input type="submit" name="command" value="Edge Detect" />
+        </form>
+    </article>
+
+    <canvas id="canvas" style="border:0px solid #E8E8E8;"></canvas>
+
+    <script>
+        var f = "{{img}}".slice(5, -5);
+        <!-- console.log(f); -->
+        draw(f);
+
+    function draw(file) {
+      var canvas = document.getElementById('canvas');
+      if (canvas.getContext) {
+        var ctx = canvas.getContext('2d');
+        var x = 0;
+        var y = 0;
+        var r = 0;
+        var g = 0;
+        var b = 0;
+        var lines = file.split('\n');
+        var lenx = lines[0].split(',').length;
+        var leny = lines.length -1;
+        <!-- console.log(lenx, leny); -->
+
+        canvas.width = 2*lenx;
+        canvas.height = 2*leny;
+
+        for (let y = 0; y < leny; y++) {
+            line = lines[y].split(',');
+            <!-- console.log(line); -->
+            for (let x = 0; x < lenx; x++) {
+                r = parseInt(line[x].slice(0, 2), 16);
+                g = parseInt(line[x].slice(2, 4), 16);
+                b = parseInt(line[x].slice(4, 6), 16);
+                <!-- console.log(r, g, b); -->
+                ctx.fillStyle = "rgb("+r+","+g+","+b+")";
+                ctx.fillRect(x*2, y*2, 2, 2);
+            }
+        }
+      }
+    }
+
+    </script>
+</main>
+<footer style="font-size:small; padding-top:2em;">
+    Furkan Çaycı, 2021
+</footer>
+</body>
+</html>

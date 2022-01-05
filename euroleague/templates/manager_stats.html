@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<head>
+    <title>EuroLeague - Manager Stats</title>
+</head>
+<body>
+    <h1> {{ title }} - Manager Stats</h1>
+
+    <ul style="list-style: None; padding-left: 0">
+        <li><b>Team</b> : <a href="{{ url_for('team_stats', tid=team.id ) }}">{{team.name}}</a></li>
+    </ul>
+    <ul style="list-style: None; padding-left: 0">
+        {% for key, value in stats.items() %}
+            <li><b>{{key}}</b> : {{value}}</li>
+        {% endfor %}
+        </tr>
+    </ul>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<head>
+    <title>EuroLeague</title>
+    <style>
+        .fixture tr:nth-child(even) {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+<main style="min-height:600px">
+
+<form action="/" method="post">
+
+    <h1>EuroLeague</h1>
+
+    <input type="submit" name="command" value="Play Next Week" />
+    <input type="submit" name="command" value="Player Stats" />
+    <input type="submit" name="command" value="Manager Stats" />
+
+    <h2>Current Standings</h2>
+
+<table id="test-table" class="table fixture" cellspacing="0" width="100%" style="text-align:left">
+    <thead>
+        <tr>
+            {% for c in columns %}
+                <th scope="col">{{c}}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for i, v in table_data.items() %}
+            <tr>
+                <td>{{i+1}}. <a href="{{ url_for('team_stats', tid=v.id ) }}">{{v.col1}}</a></td>
+                <td>{{v.col2}}</td>
+                <td>{{v.col3}}</td>
+                <td>{{v.col4}}</td>
+                <td>{{v.col5}}</td>
+                <td>{{v.col6}}</td>
+                <td>{{v.col7}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2>Previous Week ({{week}}) Games</h2>
+<table id="test-table" class="table fixture" cellspacing="0" width="100%" style="text-align:left">
+<thead>
+    <tr>
+        <th></th>
+        <th>Home</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>Away</th>
+    </tr>
+</thead>
+<tbody>
+    {% for i, v in pw.items() %}
+        <tr>
+            <td>{{i+1}}</td>
+            <td>{{v.col1}}</td>
+            <td>{{v.col2}}</td>
+            <td>{{v.col3}}</td>
+            <td>{{v.col4}}</td>
+            <td>{{v.col5}}</td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+
+<h2>Next Week ({{week+1}}) Games</h2>
+<table id="test-table" class="table fixture" cellspacing="0" width="100%" style="text-align:left">
+<thead>
+    <tr>
+        <th></th>
+        <th>Home</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>Away</th>
+    </tr>
+</thead>
+<tbody>
+    {% for i, v in nw.items() %}
+        <tr>
+            <td>{{i+1}}</td>
+            <td>{{v.col1}}</td>
+            <td>{{v.col2}}</td>
+            <td>{{v.col3}}</td>
+            <td>{{v.col4}}</td>
+            <td>{{v.col5}}</td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+
+<br />
+
+   <input type="submit" name="command" value="Reset Season" />
+</form>
+
+</main>
+<footer style="font-size:small; padding-top:2em;">
+    Furkan Çaycı, 2021
+</footer>
+</body>
+</html>

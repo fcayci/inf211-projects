@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<head>
+    <style>
+        .fixture tr:nth-child(even) {
+            background-color: #ddd;
+        }
+    </style>
+    <title>EuroLeague - Team Stats</title>
+</head>
+<body>
+    <h1> {{ title }} - Team Stats</h1>
+
+    <ul style="list-style: None; padding-left: 0">
+        <li><b>Manager</b> : <a href="{{ url_for('manager_stats', mid=m.id ) }}">{{m.name}}</a></li>
+        {% for key, value in ts.items() %}
+            <li><b>{{key}} </b> : {{value}}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Roster</h2>
+
+    <ol>
+        {% for p in ps %}
+            <li><a href="{{ url_for('player_stats', pid=p.id ) }}">{{p.name}}</a> :: {{ p.points }}</li>
+        {% endfor %}
+    </ol>
+
+
+    <h2>Fixture</h2>
+    <table id="test-table" class="table fixture" cellspacing="0" width="100%" style="text-align:left">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Home</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>Away</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i, v in ms.items() %}
+            <tr>
+                <td>Week {{i+1}}</td>
+                <td>{{v.col1}}</td>
+                <td>{{v.col2}}</td>
+                <td>{{v.col3}}</td>
+                <td>{{v.col4}}</td>
+                <td>{{v.col5}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+</body>
+</html>
